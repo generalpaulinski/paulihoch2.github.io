@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pauli² Podcast</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #ffe6f0; /* helles Rosé */
+            color: #ff00a0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), 
+                        url('images/BBD_3167.JPG') center/cover;
+            z-index: -1;
+            background-repeat: repeat-x;
+            background-size: auto 100%;
+            background-position: top left;
+        }
+
+        .content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+        .logo-container {
+            margin-top: 40px;
+        }
+
+        .logo {
+            font-size: 5.5rem;
+            font-weight: 900;
+            color: #ff00a0;
+            text-shadow: 0 0 15px rgba(255, 0, 160, 0.5);
+            letter-spacing: -1px;
+        }
+
+        .main-text {
+            margin: 10vh 0;
+            padding: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            line-height: 1.1;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            margin-top: 20px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .coming-soon {
+            margin-bottom: 40px;
+        }
+
+        .coming-text {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 0, 160, 0.5);
+        }
+
+        .platforms {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .platform {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes rotateSlight {
+  0% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+  100% { transform: rotate(-10deg); }
+}
+
+        .platform-logo {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(255, 0, 160, 0.3);
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+        }
+
+        .platform-logo:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 20px rgba(255, 0, 160, 0.6);
+        }
+
+        .platform-logo i {
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        .platform-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Instagram Button Styling */
+.platform.instagram a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: #E1306C; /* Instagram Pink */
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(225, 48, 108, 0.6);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    width: fit-content;
+    margin: 0 auto; /* zentriert im Container */
+}
+
+.platform.instagram a:hover {
+    background: #C13584; /* dunkleres Pink beim Hover */
+    box-shadow: 0 6px 15px rgba(193, 53, 132, 0.8);
+    transform: translateY(-3px);
+}
+
+.platform.instagram a i {
+    font-size: 1.8rem;
+}
+
+        .emoji-bubble, .emoji-heart {
+    position: absolute;
+    bottom: -100px;
+    font-size: 2.5rem;
+    z-index: 1;
+    animation: floatAndRotate;
+    will-change: transform, opacity;
+    transform-origin: center;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-name: floatAndRotate;
+    animation-duration: var(--duration, 12s), 3s;
+    animation-delay: var(--delay, 0s), var(--delay, 0s);
+    animation-iteration-count: 1, infinite;
+}
+
+#bubbles-container, #hearts-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Damit sie keine Mausinteraktionen blockieren */
+  overflow: visible;
+  z-index: 5;
+}
+
+@keyframes floatAndRotate {
+  0% {
+    transform: translateY(0) translateX(0) rotate(-10deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-75vh) translateX(calc(var(--x-end) * 1vw)) rotate(10deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-150vh) translateX(calc(var(--x-end) * 1vw)) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+        /* Impressum */
+        .impressum {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            z-index: 100;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .impressum:hover {
+            color: #ff00a0;
+            text-decoration: underline;
+        }
+
+        .impressum-content {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255, 0.9); /* transparentes Rosé */
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #ff66b2; /* helleres Pink */
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 1000;
+            color: #ff66b2; /* dunkleres Pink für Lesbarkeit */
+            text-align: left;
+            backdrop-filter: blur(10px);
+        }
+
+        .impressum-content h2 {
+            color: #ff00a0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .impressum-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #ff00a0;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        /* Performance-Optimierungen */
+        .performance-warning {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: #ff5555;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    .logo {
+        font-size: 2.8rem;
+    }
+    .coming-text {
+        font-size: 1.4rem;
+    }
+    .platform-logo {
+        width: 50px;
+        height: 50px;
+    }
+    .platform-logo i {
+        font-size: 1.5rem;
+    }
+
+    /* Optional: Weniger Animationen, aber nicht ausblenden */
+    /* .bubble, .heart {
+        display: none;
+    } */
+}
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .logo {
+                font-size: 2.2rem;
+            }
+            .platforms {
+                gap: 15px;
+            }
+            .platform-logo {
+                width: 45px;
+                height: 45px;
+            }
+            .platform-logo i {
+                font-size: 1.3rem;
+            }
+            .coming-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background"></div>
+    
+    <!-- Seifenblasen -->
+    <div id="bubbles-container"></div>
+    
+    <!-- Herzen -->
+    <div id="hearts-container"></div>
+    
+    <div class="content">
+        <div class="logo-container">
+            <div class="logo">PAULI²</div>
+        </div>
+        
+        <div class="main-text">
+            <h1>Single, n*tgeil & hoffnungslos romantisch.</h1>
+            <div class="subtitle">
+                Ein Podcast von 2 Frauen, die ALLES haben - außer den Richtigen.<br>
+                Beruht auf wahren Begebenheiten.<br><br>
+                <strong>Paulita Pappel & Pauline Schmiechen</strong>
+            </div>
+        </div>
+        
+        <div class="coming-soon">
+            <div class="coming-text">COMING SOON AUF</div>
+            <div class="platforms">
+                <div class="platform">
+                    <div class="platform-logo">
+                        <i class="fab fa-spotify"></i>
+                    </div>
+                    <div class="platform-name">Spotify</div>
+                </div>
+                <div class="platform">
+                    <div class="platform-logo">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <div class="platform-name">Apple</div>
+                </div>
+                <div class="platform">
+                    <div class="platform-logo">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="platform-name">Google</div>
+                </div>
+                <div class="platform">
+                    <div class="platform-logo">
+                        <i class="fab fa-amazon"></i>
+                    </div>
+                    <div class="platform-name">Amazon</div>
+                </div>
+            </div>
+        </div>
+
+         <div class="platform instagram">
+    <a href="https://www.instagram.com/dein_instagram_username" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+        Instagram
+    </a>
+</div>
+    </div>
+    
+    <!-- Impressum Link -->
+    <a href="#" class="impressum" id="impressum-link">Impressum</a>
+    
+    <!-- Impressum Overlay -->
+    <div class="overlay" id="impressum-overlay"></div>
+    
+    <div class="impressum-content" id="impressum-content">
+        <span class="close-btn" id="close-impressum">&times;</span>
+        <h2>Impressum</h2>
+        
+        <p><strong>Angaben gemäß § 5 TMG:</strong></p>
+        <p>Pauli² Podcast GbR<br>
+        Musterstraße 123<br>
+        20357 Hamburg</p>
+        
+        <p><strong>Vertreten durch:</strong><br>
+        Maxine Mustermann<br>
+        Paula Beispiel</p>
+        
+        <p><strong>Kontakt:</strong><br>
+        Telefon: +49 (0) 40 12345678<br>
+        E-Mail: info@pauli-podcast.de<br>
+        Website: www.pauli-podcast.de</p>
+        
+        <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br>
+        Maxine Mustermann, Paula Beispiel<br>
+        Musterstraße 123, 20357 Hamburg</p>
+        
+        <p><strong>Haftungsausschluss:</strong></p>
+        <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
+        
+        <p><strong>Urheberrecht:</strong><br>
+        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+    </div>
+
+    <div class="performance-warning" id="perf-warning">Leistungswarnung: Animationen reduziert</div>
+
+    <script>
+        // Globale Variablen zur Leistungssteuerung
+        let animationActive = true;
+        let activeAnimations = 0;
+        const maxAnimations = 15; // Maximale Anzahl gleichzeitiger Animationen
+
+        // Seifenblasen erstellen
+        function createBubbles() {
+            if (!animationActive) return;
+
+    const container = document.getElementById('bubbles-container');
+    if (!container || activeAnimations >= maxAnimations) return;
+
+    const bubble = document.createElement('div');
+    bubble.classList.add('emoji-bubble');
+    bubble.textContent = '💖';  // Beispiel: iPhone-Style Herz-Emoji als Bubble
+
+    // Zufällige Größe und Position
+    const size = Math.random() * 30 + 15;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 15 + 10;
+    const delay = Math.random() * 5;
+    const xEnd = Math.random() * 40 - 20;
+
+    bubble.style.fontSize = `${size}px`;
+    bubble.style.left = `${left}%`;
+    bubble.style.setProperty('--x-end', xEnd);
+    bubble.style.setProperty('--duration', `${duration}s`);
+    bubble.style.setProperty('--delay', `${delay}s`);
+
+    container.appendChild(bubble);
+    activeAnimations++;
+
+    // Nach der Animation entfernen
+    setTimeout(() => {
+        bubble.remove();
+        activeAnimations--;
+    }, (duration + delay) * 1000);
+        }
+        
+        // Herzen erstellen
+        function createHearts() {
+if (!animationActive) return;
+
+    const container = document.getElementById('hearts-container');
+    if (!container || activeAnimations >= maxAnimations) return;
+
+    const heart = document.createElement('div');
+    heart.classList.add('emoji-heart');
+    heart.textContent = '🫶';  // Beispiel: iPhone-Style Herz-Emoji (Alternativ: 🧡, 💗, etc.)
+
+    const left = Math.random() * 100;
+    const duration = Math.random() * 12 + 8;
+    const delay = Math.random() * 5;
+    const xEnd = Math.random() * 30 - 15;
+    const size = (Math.random() * 1.5 + 1) * 20; // pixelgröße, ca.
+
+    heart.style.left = `${left}%`;
+    heart.style.bottom = `-50px`;
+    heart.style.fontSize = `${size}px`;
+    heart.style.setProperty('--x-end', xEnd);
+    heart.style.setProperty('--duration', `${duration}s`);
+    heart.style.setProperty('--delay', `${delay}s`);
+
+    container.appendChild(heart);
+    activeAnimations++;
+
+    setTimeout(() => {
+        heart.remove();
+        activeAnimations--;
+    }, (duration + delay) * 1000);
+        }
+        
+        // Animationsmanager
+        function manageAnimations() {
+            // Prüfen, ob wir neue Animationen starten können
+            if (activeAnimations < maxAnimations) {
+                // Entscheiden, welche Animation erstellt werden soll
+                const choice = Math.random();
+                if (choice < 0.6) {
+                    createBubbles();
+                } else {
+                    createHearts();
+                }
+            }
+            
+            // Langsamerer Aufruf bei hoher Last
+            const delay = activeAnimations > maxAnimations * 0.8 ? 2000 : 500;
+            setTimeout(manageAnimations, delay);
+        }
+        
+        // Impressum anzeigen
+        document.getElementById('impressum-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('impressum-overlay').style.display = 'block';
+            document.getElementById('impressum-content').style.display = 'block';
+        });
+        
+        // Impressum schließen
+        document.getElementById('close-impressum').addEventListener('click', function() {
+            document.getElementById('impressum-overlay').style.display = 'none';
+            document.getElementById('impressum-content').style.display = 'none';
+        });
+        
+        document.getElementById('impressum-overlay').addEventListener('click', function() {
+            document.getElementById('impressum-overlay').style.display = 'none';
+            document.getElementById('impressum-content').style.display = 'none';
+        });
+        
+        // Animationen starten
+        document.addEventListener('DOMContentLoaded', () => {
+            // Starte den Animationsmanager
+            manageAnimations();
+            
+            // Leistungsüberwachung
+            let lastTime = performance.now();
+            let frameCount = 0;
+            
+            function checkPerformance() {
+                const now = performance.now();
+                const elapsed = now - lastTime;
+                
+                if (elapsed > 1000) {
+                    const fps = Math.round((frameCount * 1000) / elapsed);
+                    
+                    if (fps < 25) {
+                        document.getElementById('perf-warning').style.display = 'block';
+                        animationActive = false;
+                        
+                        // Animationen nach 5 Sekunden wieder aktivieren
+                        setTimeout(() => {
+                            animationActive = true;
+                            document.getElementById('perf-warning').style.display = 'none';
+                        }, 5000);
+                    }
+                    
+                    frameCount = 0;
+                    lastTime = now;
+                }
+                
+                frameCount++;
+                requestAnimationFrame(checkPerformance);
+            }
+            
+            requestAnimationFrame(checkPerformance);
+        });
+    </script>
+</body>
+</html>
